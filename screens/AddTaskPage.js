@@ -74,7 +74,7 @@ const Add_TaskPage = ({ navigation }) => {
   };
 
   const handle_ConfirmTime = (time) => {
-    const currDueDate = new Date(dueDate);
+    const currDueDate = new Date(due_Date);
     const selectedHrs = time.getHours();
     const selectedMins = time.getMinutes();
     currDueDate.setHours(selectedHrs);
@@ -139,13 +139,13 @@ const Add_TaskPage = ({ navigation }) => {
           {/* Due date section */}
           <Text style={styles.label_Text}>Due Date:</Text>
           <TouchableOpacity onPress={showDatePicker} style={styles.dateButton}>
-            <Text style={styles.button_Text}>{dueDate.toDateString()}</Text>
+            <Text style={styles.button_Text}>{due_Date.toDateString()}</Text>
           </TouchableOpacity>
           {/* Due date section */}
           <Text style={styles.label_Text}>Due Time:</Text>
           <TouchableOpacity onPress={showTimePicker} style={styles.dateButton}>
             <Text style={styles.button_Text}>
-              {dueDate.toLocaleTimeString([], {
+              {due_Date.toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
               })}
