@@ -7,14 +7,14 @@ import {
   Image,
   Dimensions,
 } from "react-native";
-import { task_Context } from "./task_Context";
+import { Task_context } from "./task_Context";
 import { LinearGradient } from "expo-linear-gradient";
 import Bottom_Nav from "../components/BottomNav";
 
 const { width } = Dimensions.get("window");
 
 const Achievement_Page = ({ navigation }) => {
-  const { user_Profile, levels } = useContext(task_Context); // accessing userProfile and levels from TaskContext
+  const { user_Profile, levels } = useContext(Task_context); // accessing userProfile and levels from TaskContext
 
   // Function to get the current level of the user
   const getCurrLevel = () => {

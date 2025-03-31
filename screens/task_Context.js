@@ -52,7 +52,7 @@ export const Task_provider = ({ children }) => {
   ];
 
   useEffect(() => {
-    fetchTasks(); // load tasks for the current user
+    fetch_Tasks(); // load tasks for the current user
     load_User_profile();
     initializeUsers(); // ensure users are loaded or initialized from AsyncStorage
   }, []);
@@ -82,7 +82,7 @@ export const Task_provider = ({ children }) => {
     }
   };
 
-  const fetchTasks = async () => {
+  const fetch_Tasks = async () => {
     try {
       const currentUserEmail = await AsyncStorage.getItem("currentUserEmail");
       if (!currentUserEmail) return;
@@ -124,7 +124,7 @@ export const Task_provider = ({ children }) => {
     }
   };
 
-  const saveUserProfile = async (newUserProfile) => {
+  const save_User_profile = async (newUserProfile) => {
     try {
       const usersJson = await AsyncStorage.getItem("users");
       const users = usersJson ? JSON.parse(usersJson) : [];
@@ -141,7 +141,7 @@ export const Task_provider = ({ children }) => {
     }
   };
 
-  const addTask = async (task, collaborators = []) => {
+  const add_Task = async (task, collaborators = []) => {
     const newTask = { id: Date.now().toString(), ...task, completed: false };
     //console.log("Adding task:", newTask, "for collaborators:", collaborators);
 
@@ -160,7 +160,7 @@ export const Task_provider = ({ children }) => {
       ); // save updated tasks for each user
     }
     //console.log("Task added successfully for users:", allEmails)
-    fetchTasks(); // refresh tasks for the current user
+    fetch_Tasks(); // refresh tasks for the current user
   };
 
   const deleteTask = (taskId) => {
@@ -185,7 +185,7 @@ export const Task_provider = ({ children }) => {
     );
     // When level is not found
     if (currentLevelIndex === -1) {
-      saveUserProfile({ ...user_Profile, xp: newXP });
+      save_User_profile({ ...user_Profile, xp: newXP });
       return;
     }
 
@@ -203,7 +203,7 @@ export const Task_provider = ({ children }) => {
       }
     }
 
-    saveUserProfile({ ...user_Profile, xp: newXP, level: newLevel });
+    save_User_profile({ ...user_Profile, xp: newXP, level: newLevel });
   };
 
   const initializeUsers = async () => {
@@ -217,7 +217,7 @@ export const Task_provider = ({ children }) => {
     }
   };
 
-  const checkUserExists = async (email) => {
+  const check_UserExists = async (email) => {
     try {
       const usersJson = await AsyncStorage.getItem("users");
       const users = usersJson ? JSON.parse(usersJson) : [];
@@ -230,7 +230,7 @@ export const Task_provider = ({ children }) => {
     }
   };
 
-  const addUser = async (user) => {
+  const add_User = async (user) => {
     try {
       const usersJson = await AsyncStorage.getItem("users");
       const users = usersJson ? JSON.parse(usersJson) : [];
@@ -247,16 +247,16 @@ export const Task_provider = ({ children }) => {
     <Task_context.Provider
       value={{
         tasks,
-        addTask,
+        add_Task,
         deleteTask,
         completeTask,
         user_Profile,
         incrementXP,
         levels,
-        saveUserProfile,
-        fetchTasks,
-        checkUserExists,
-        addUser,
+        save_User_profile,
+        fetch_Tasks,
+        check_UserExists,
+        add_User,
       }}
     >
       {children}

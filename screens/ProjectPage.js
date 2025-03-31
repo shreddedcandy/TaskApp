@@ -8,7 +8,7 @@ import {
   Alert,
   ScrollView,
 } from "react-native";
-import { task_Context } from "./task_Context";
+import { Task_context } from "./task_Context";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { LinearGradient } from "expo-linear-gradient";
 import Bottom_Nav from "../components/BottomNav";
@@ -22,7 +22,7 @@ const Project_page = ({ navigation }) => {
   const [email, set_Email] = useState("");
   const [user_Emails, set_User_emails] = useState([]);
 
-  const { add_Task, check_User_exists } = useContext(task_Context);
+  const { add_Task, check_User_exists } = useContext(Task_context);
 
   const handle_Add_task = async () => {
     if (!task_Title || !taskDescrip) {

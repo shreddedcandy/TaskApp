@@ -17,7 +17,7 @@ const SignUp_Page = ({ navigation }) => {
   const [nickname, setNickname] = useState("");
   const [loading, set_Loading] = useState(false);
 
-  const { saveUserProfile, addUser, checkUserExists } = useContext(Task_context); // use the saveUserProfile and addUser functions from TaskContext
+  const { save_User_profile, add_User, check_UserExists } = useContext(Task_context); // use the saveUserProfile and addUser functions from TaskContext
 
   const handle_SignUp = async () => {
     if (!email || !password || !nickname) {
@@ -32,7 +32,7 @@ const SignUp_Page = ({ navigation }) => {
 
     try {
       // Check if the email is already registered
-      const userExists = await checkUserExists(email);
+      const userExists = await check_UserExists(email);
 
       if (userExists) {
         set_Loading(false);
@@ -52,8 +52,8 @@ const SignUp_Page = ({ navigation }) => {
       };
 
       // Add the new user to AsyncStorage
-      await addUser(userProfile);
-      saveUserProfile(userProfile); // update context with new user profile
+      await add_User(userProfile);
+      save_User_profile(userProfile); // update context with new user profile
       await AsyncStorage.setItem("currentUserEmail", email); // set current user email for session persistence
       console.log("User successfully created:", userProfile); // success message
 

@@ -9,14 +9,14 @@ import {
   ActivityIndicator,
   Image,
 } from "react-native";
-import { task_Context } from "./task_Context";
+import { Task_context } from "./task_Context";
 import * as Progress from "react-native-progress";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Bottom_Nav from "../components/BottomNav";
 
 const HomePg = ({ navigation }) => {
   const { tasks, delete_Task, complete_Task, user_Profile, fetch_Tasks, levels } =
-    useContext(task_Context);
+    useContext(Task_context);
 
   useEffect(() => {
     fetch_Tasks(); // fetch tasks directly without checking user email, using local storage now

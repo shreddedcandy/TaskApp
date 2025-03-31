@@ -6,7 +6,7 @@ import Bottom_Nav from "../../components/BottomNav";
 
 const ChangeNNPage = ({ navigation }) => {
   const [new_Nickname, setNewNN] = useState("");
-  const { userProfile, saveUserProfile } = useContext(Task_context);
+  const { user_Profile, save_User_profile } = useContext(Task_context);
 
   const handle_ChangeNN = async () => {
     if (!new_Nickname) {
@@ -15,9 +15,9 @@ const ChangeNNPage = ({ navigation }) => {
     }
 
     try {
-      const updated_Profile = { ...userProfile, nickname: new_Nickname };
+      const updated_Profile = { ...user_Profile, nickname: new_Nickname };
       await AsyncStorage.setItem("userProfile", JSON.stringify(updated_Profile)); // save updated profile to AsyncStorage
-      saveUserProfile(updated_Profile); // update context with new user profile
+      save_User_profile(updated_Profile); // update context with new user profile
       Alert.alert("Success", "Nickname updated successfully");
       navigation.goBack();
     } catch (error) {

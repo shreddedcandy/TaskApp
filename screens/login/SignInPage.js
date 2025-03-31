@@ -13,8 +13,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 const SignIn_Page = ({ navigation }) => {
-  const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, set_Loading] = useState(false);
   const { save_User_profile, check_UserExists } = useContext(Task_context);
 

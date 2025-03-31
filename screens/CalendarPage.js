@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import { task_Context } from "./task_Context";
+import { Task_context } from "./task_Context";
 import { Calendar } from "react-native-calendars";
 import Bottom_Nav from "../components/BottomNav";
 
 const Calendar_Page = ({ navigation }) => {
-  const { tasks, fetch_Tasks } = useContext(task_Context);
+  const { tasks, fetch_Tasks } = useContext(Task_context);
   const [marked_Dates, setMarked_dates] = useState({}); // state to store marked dates for the calendar
 
   // fetch tasks when the component mounts

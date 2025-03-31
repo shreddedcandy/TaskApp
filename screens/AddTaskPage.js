@@ -9,7 +9,7 @@ import {
   ScrollView,
 } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { task_Context } from "./task_Context";
+import { Task_context } from "./task_Context";
 
 import { LinearGradient } from "expo-linear-gradient";
 import Bottom_Nav from "../components/BottomNav";
@@ -24,7 +24,7 @@ const Add_TaskPage = ({ navigation }) => {
   const [isTimePicker_Visible, setTimePicker_Visibility] = useState(false);
 
   // access addTask function from TaskContext
-  const { addTask } = useContext(task_Context);
+  const { addTask } = useContext(Task_context);
 
   // function to handle adding a task
   const handle_AddTask = async () => {
