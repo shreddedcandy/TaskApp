@@ -24,7 +24,7 @@ const Add_TaskPage = ({ navigation }) => {
   const [isTimePicker_Visible, setTimePicker_Visibility] = useState(false);
 
   // access addTask function from TaskContext
-  const { addTask } = useContext(Task_context);
+  const { add_Task } = useContext(Task_context);
 
   // function to handle adding a task
   const handle_AddTask = async () => {
@@ -43,7 +43,7 @@ const Add_TaskPage = ({ navigation }) => {
         due_Date,
         type: "task",
       };
-      await addTask(task);
+      await add_Task(task);
       console.log("Task added successfully:", task); // task information
       Alert.alert("Success", "Task added successfully");
       navigation.goBack();
