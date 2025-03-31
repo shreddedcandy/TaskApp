@@ -98,7 +98,7 @@ const Add_TaskPage = ({ navigation }) => {
           <Text style={styles.label_Text}>Task Title:</Text>
           <TextInput
             style={styles.input}
-            value={taskTitle}
+            value={task_Title}
             onChangeText={set_TaskTitle}
             placeholder="Task title"
             placeholderTextColor="#aaa"
@@ -107,7 +107,7 @@ const Add_TaskPage = ({ navigation }) => {
           <Text style={styles.label_Text}>Task Description:</Text>
           <TextInput
             style={[styles.input, styles.textArea]}
-            value={taskDescription}
+            value={taskDescrip}
             onChangeText={setTaskDescrip}
             placeholder="Task description"
             placeholderTextColor="#aaa"
