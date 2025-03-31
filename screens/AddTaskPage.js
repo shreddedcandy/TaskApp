@@ -9,25 +9,26 @@ import {
   ScrollView,
 } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { TaskContext } from "./TaskContext";
-import { LinearGradient } from "expo-linear-gradient";
-import BottomNav from "../components/BottomNav";
+import { task_Context } from "./task_Context";
 
-const AddTaskPage = ({ navigation }) => {
+import { LinearGradient } from "expo-linear-gradient";
+import Bottom_Nav from "../components/BottomNav";
+
+const Add_TaskPage = ({ navigation }) => {
   // State variables for task
-  const [taskTitle, setTaskTitle] = useState("");
-  const [taskDescription, setTaskDescription] = useState("");
-  const [priority, setPriority] = useState("Low");
-  const [dueDate, setDueDate] = useState(new Date());
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
+  const [task_Title, set_TaskTitle] = useState("");
+  const [taskDescrip, setTaskDescrip] = useState("");
+  const [priority, set_Priority] = useState("Low");
+  const [due_Date, setDue_date] = useState(new Date());
+  const [isDatePicker_Visible, setDatePicker_Visibility] = useState(false);
+  const [isTimePicker_Visible, setTimePicker_Visibility] = useState(false);
 
   // access addTask function from TaskContext
-  const { addTask } = useContext(TaskContext);
+  const { addTask } = useContext(task_Context);
 
   // function to handle adding a task
-  const handleAddTask = async () => {
-    if (!taskTitle || !taskDescription) {
+  const handle_AddTask = async () => {
+    if (!task_Title || !taskDescrip) {
       Alert.alert(
         "Validation Error",
         "Task title and description are required"
@@ -36,10 +37,10 @@ const AddTaskPage = ({ navigation }) => {
     }
     try {
       const task = {
-        taskTitle,
-        taskDescription,
+        task_Title,
+        taskDescrip,
         priority,
-        dueDate,
+        due_Date,
         type: "task",
       };
       await addTask(task);
@@ -52,33 +53,33 @@ const AddTaskPage = ({ navigation }) => {
   };
 
   const showDatePicker = () => {
-    setDatePickerVisibility(true);
+    setDatePicker_Visibility(true);
   };
 
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
+  const hide_DatePicker = () => {
+    setDatePicker_Visibility(false);
   };
 
-  const handleConfirmDate = (date) => {
-    setDueDate(date);
-    hideDatePicker();
+  const handle_ConfirmDate = (date) => {
+    setDue_Date(date);
+    hide_DatePicker();
   };
 
   const showTimePicker = () => {
-    setTimePickerVisibility(true);
+    setTimePicker_Visibility(true);
   };
 
   const hideTimePicker = () => {
-    setTimePickerVisibility(false);
+    setTimePicker_Visibility(false);
   };
 
-  const handleConfirmTime = (time) => {
-    const currentDueDate = new Date(dueDate);
-    const selectedHours = time.getHours();
-    const selectedMinutes = time.getMinutes();
-    currentDueDate.setHours(selectedHours);
-    currentDueDate.setMinutes(selectedMinutes);
-    setDueDate(currentDueDate);
+  const handle_ConfirmTime = (time) => {
+    const currDueDate = new Date(dueDate);
+    const selectedHrs = time.getHours();
+    const selectedMins = time.getMinutes();
+    currDueDate.setHours(selectedHrs);
+    currDueDate.setMinutes(selectedMins);
+    setDue_date(currDueDate);
     hideTimePicker();
   };
 
@@ -88,32 +89,32 @@ const AddTaskPage = ({ navigation }) => {
       style={styles.container}
     >
       {/* scroll view content container which wraps all of the child views */}
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <ScrollView contentContainerStyle={styles.scroll_Container}>
         <View style={styles.header}>
-          <Text style={styles.headerText}>Add Task</Text>
+          <Text style={styles.header_Text}>Add Task</Text>
         </View>
 
-        <View style={styles.inputContainer}>
-          <Text style={styles.labelText}>Task Title:</Text>
+        <View style={styles.input_Container}>
+          <Text style={styles.label_Text}>Task Title:</Text>
           <TextInput
             style={styles.input}
             value={taskTitle}
-            onChangeText={setTaskTitle}
+            onChangeText={set_TaskTitle}
             placeholder="Task title"
             placeholderTextColor="#aaa"
           />
 
-          <Text style={styles.labelText}>Task Description:</Text>
+          <Text style={styles.label_Text}>Task Description:</Text>
           <TextInput
             style={[styles.input, styles.textArea]}
             value={taskDescription}
-            onChangeText={setTaskDescription}
+            onChangeText={setTaskDescrip}
             placeholder="Task description"
             placeholderTextColor="#aaa"
             multiline
           />
           {/* Priority level section */}
-          <Text style={styles.labelText}>Priority Level:</Text>
+          <Text style={styles.label_Text}>Priority Level:</Text>
           <View style={styles.priorityContainer}>
             {["Low", "Med", "High", "Critical"].map((level) => (
               <TouchableOpacity
@@ -122,7 +123,7 @@ const AddTaskPage = ({ navigation }) => {
                   styles.priorityButton,
                   priority === level && styles.selectedPriority,
                 ]}
-                onPress={() => setPriority(level)}
+                onPress={() => set_Priority(level)}
               >
                 <Text
                   style={[
@@ -136,14 +137,14 @@ const AddTaskPage = ({ navigation }) => {
             ))}
           </View>
           {/* Due date section */}
-          <Text style={styles.labelText}>Due Date:</Text>
+          <Text style={styles.label_Text}>Due Date:</Text>
           <TouchableOpacity onPress={showDatePicker} style={styles.dateButton}>
-            <Text style={styles.buttonText}>{dueDate.toDateString()}</Text>
+            <Text style={styles.button_Text}>{dueDate.toDateString()}</Text>
           </TouchableOpacity>
           {/* Due date section */}
-          <Text style={styles.labelText}>Due Time:</Text>
+          <Text style={styles.label_Text}>Due Time:</Text>
           <TouchableOpacity onPress={showTimePicker} style={styles.dateButton}>
-            <Text style={styles.buttonText}>
+            <Text style={styles.button_Text}>
               {dueDate.toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
@@ -153,16 +154,16 @@ const AddTaskPage = ({ navigation }) => {
 
           {/* Selection of time and date section */}
           <DateTimePickerModal
-            isVisible={isDatePickerVisible}
+            isVisible={isDatePicker_Visible}
             mode="date"
-            onConfirm={handleConfirmDate}
+            onConfirm={handle_ConfirmDate}
             onCancel={hideDatePicker}
           />
 
           <DateTimePickerModal
-            isVisible={isTimePickerVisible}
+            isVisible={isTimePicker_Visible}
             mode="time"
-            onConfirm={handleConfirmTime}
+            onConfirm={handle_ConfirmTime}
             onCancel={hideTimePicker}
           />
         </View>
@@ -172,17 +173,17 @@ const AddTaskPage = ({ navigation }) => {
             style={[styles.button, styles.cancelButton]}
             onPress={() => navigation.goBack()}
           >
-            <Text style={styles.buttonText}>Cancel</Text>
+            <Text style={styles.button_Text}>Cancel</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.button, styles.addButton]}
-            onPress={handleAddTask}
+            onPress={handle_AddTask}
           >
-            <Text style={styles.buttonText}>Add Task</Text>
+            <Text style={styles.button_Text}>Add Task</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
-      <BottomNav navigation={navigation} />
+      <Bottom_Nav navigation={navigation} />
     </LinearGradient>
   );
 };
@@ -191,7 +192,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  scrollContainer: {
+  scroll_Container: {
     justifyContent: "center",
     flexGrow: 1,
     padding: 20,
@@ -201,15 +202,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 20,
   },
-  headerText: {
+  header_Text: {
     fontSize: 28,
     color: "#fff",
     fontWeight: "bold",
   },
-  inputContainer: {
+  input_Container: {
     marginBottom: 20,
   },
-  labelText: {
+  label_Text: {
     color: "#fff",
     marginBottom: 5,
   },
@@ -272,11 +273,11 @@ const styles = StyleSheet.create({
   addButton: {
     backgroundColor: "#4caf50",
   },
-  buttonText: {
+  button_Text: {
     color: "#fff",
     fontSize: 18,
     fontWeight: "bold",
   },
 });
 
-export default AddTaskPage;
+export default Add_TaskPage;

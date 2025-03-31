@@ -1,8 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
-import BottomNav from "../components/BottomNav";
+import Bottom_Nav from "../components/BottomNav";
 
-const TasksForDay = ({ route, navigation }) => {
+const Tasks_For_day = ({ route, navigation }) => {
   const { tasks } = route.params || {};
 
   return (
@@ -48,7 +48,7 @@ const TasksForDay = ({ route, navigation }) => {
           <Text style={styles.noTasksText}>No tasks for today!</Text>
         )}
       </View>
-      <BottomNav navigation={navigation} />
+      <Bottom_Nav navigation={navigation} />
     </View>
   );
 };
@@ -109,4 +109,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TasksForDay;
+export default Tasks_For_day;

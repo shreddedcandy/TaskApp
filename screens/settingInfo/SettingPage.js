@@ -2,13 +2,13 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import BottomNav from "../../components/BottomNav";
+import Bottom_Nav from "../../components/BottomNav";
 
-const SettingPage = () => {
-  const navigation = useNavigation();
+const Setting_Page = () => {
+  const nav = useNavigation();
 
   // Function to handle user logout
-  const handleLogout = async () => {
+  const handle_Logout = async () => {
     try {
       // Clear the user data from AsyncStorage to log out
       await AsyncStorage.removeItem("currentUserEmail");
@@ -21,16 +21,16 @@ const SettingPage = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.contentContainer}>
+      <View style={styles.content_Container}>
         <Text style={styles.header}>Setting</Text>
-        <Text style={styles.subHeader}>Account information</Text>
+        <Text style={styles.sub_Header}>Account information</Text>
 
         {/* Button to navigate to ChangeNickname page */}
         <TouchableOpacity
           style={styles.button}
           onPress={() => navigation.navigate("ChangeNickname")}
-        >
-          <Text style={styles.buttonText}>Change nickname</Text>
+          >
+          <Text style={styles.button_Text}>Change nickname</Text>
         </TouchableOpacity>
 
         {/* Button to navigate to ChangePassword page */}
@@ -38,7 +38,7 @@ const SettingPage = () => {
           style={styles.button}
           onPress={() => navigation.navigate("ChangePassword")}
         >
-          <Text style={styles.buttonText}>Change Password</Text>
+          <Text style={styles.button_Text}>Change Password</Text>
         </TouchableOpacity>
 
         {/* Button to navigate to HowToUse page */}
@@ -46,15 +46,15 @@ const SettingPage = () => {
           style={styles.button}
           onPress={() => navigation.navigate("HowToUse")}
         >
-          <Text style={styles.buttonText}>How to use?</Text>
+          <Text style={styles.button_Text}>How to use?</Text>
         </TouchableOpacity>
 
         {/* Button to handle user logout */}
-        <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-          <Text style={styles.buttonText}>Logout</Text>
+        <TouchableOpacity style={styles.logout_Button} onPress={handle_Logout}>
+          <Text style={styles.button_Text}>Logout</Text>
         </TouchableOpacity>
       </View>
-      <BottomNav navigation={navigation} />
+      <Bottom_Nav navigation={navigation} />
     </View>
   );
 };
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#d9d9d9",
   },
-  contentContainer: {
+  content_Container: {
     flex: 1,
     justifyContent: "center",
     padding: 20,
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#cc7a00",
   },
-  subHeader: {
+  sub_Header: {
     fontSize: 18,
     fontWeight: "bold",
     color: "#a87522",
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     marginVertical: 10,
   },
-  logoutButton: {
+  logout_Button: {
     backgroundColor: "#cc7a00",
     alignItems: "center",
     padding: 15,
@@ -97,11 +97,11 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     marginTop: 40,
   },
-  buttonText: {
+  button_Text: {
     fontSize: 18,
     color: "#fff",
     fontWeight: "bold",
   },
 });
 
-export default SettingPage;
+export default Setting_Page;

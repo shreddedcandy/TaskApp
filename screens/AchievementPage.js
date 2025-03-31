@@ -7,18 +7,18 @@ import {
   Image,
   Dimensions,
 } from "react-native";
-import { TaskContext } from "./TaskContext";
+import { task_Context } from "./task_Context";
 import { LinearGradient } from "expo-linear-gradient";
-import BottomNav from "../components/BottomNav";
+import Bottom_Nav from "../components/BottomNav";
 
 const { width } = Dimensions.get("window");
 
-const AchievementPage = ({ navigation }) => {
-  const { userProfile, levels } = useContext(TaskContext); // accessing userProfile and levels from TaskContext
+const Achievement_Page = ({ navigation }) => {
+  const { user_Profile, levels } = useContext(task_Context); // accessing userProfile and levels from TaskContext
 
   // Function to get the current level of the user
-  const getCurrentLevel = () => {
-    if (!userProfile || !levels || levels.length === 0) {
+  const getCurrLevel = () => {
+    if (!user_Profile || !levels || levels.length === 0) {
       return {
         name: "Task Apprentice",
         xp: 0,
@@ -27,12 +27,12 @@ const AchievementPage = ({ navigation }) => {
       };
     }
 
-    const currentLevel = levels.find(
+    const currLevel = levels.find(
       (level) => level.name === userProfile.level
     );
 
     return (
-      currentLevel || {
+      currLevel || {
         name: "Task Apprentice",
         xp: 0,
         threshold: 300,
@@ -41,22 +41,22 @@ const AchievementPage = ({ navigation }) => {
     );
   };
 
-  const currentLevel = getCurrentLevel();
+  const currLevel = getCurrLevel();
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <ScrollView contentContainerStyle={styles.scroll_Container}>
         {userProfile && (
-          <View style={styles.currentLevel}>
+          <View style={styles.currLevel}>
             <LinearGradient
               colors={["#0f0c29", "#302b63", "#24243e"]}
-              style={styles.galaxyBackground}
+              style={styles.galaxy_Background}
             >
               <Text style={styles.header}>Current Level</Text>
-              <Image source={currentLevel.image} style={styles.image} />
-              <Text style={styles.levelName}>{currentLevel.name}</Text>
-              <Text style={styles.xp}>
-                {`${userProfile.xp} / ${currentLevel.threshold} XP`}
+              <Image source={currLevel.image} style={styles.image} />
+              <Text style={styles.levelName}>{currLevel.name}</Text>
+              <Text style={styles.XP}>
+                {`${userProfile.xp} / ${currLevel.threshold} XP`}
               </Text>
             </LinearGradient>
           </View>
@@ -74,12 +74,12 @@ const AchievementPage = ({ navigation }) => {
                   style={styles.image}
                 />
                 <Text style={styles.levelName}>{level.name}</Text>
-                <Text style={styles.xp}>{`${level.threshold} XP`}</Text>
+                <Text style={styles.XP}>{`${level.threshold} XP`}</Text>
               </LinearGradient>
             </View>
           ))}
       </ScrollView>
-      <BottomNav navigation={navigation} />
+      <Bottom_Nav navigation={navigation} />
     </View>
   );
 };
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#1a1a2e",
     flex: 1,
   },
-  scrollContainer: {
+  scroll_Container: {
     flexGrow: 1,
     alignItems: "center",
     padding: 16,
@@ -126,18 +126,18 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
   },
-  xp: {
+  XP: {
     color: "#fff",
     fontSize: 18,
   },
-  currentLevel: {
+  currLevel: {
     width: width * 0.9,
     alignItems: "center",
     padding: 16,
     borderRadius: 10,
     marginTop: 20,
   },
-  galaxyBackground: {
+  galaxy_Background: {
     width: "100%",
     alignItems: "center",
     padding: 16,
@@ -145,4 +145,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AchievementPage;
+export default Achievement_Page;

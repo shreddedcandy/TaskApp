@@ -8,24 +8,24 @@ import {
   Alert,
   ScrollView,
 } from "react-native";
-import { TaskContext } from "./TaskContext";
+import { task_Context } from "./task_Context";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { LinearGradient } from "expo-linear-gradient";
-import BottomNav from "../components/BottomNav";
+import Bottom_Nav from "../components/BottomNav";
 
-const ProjectPage = ({ navigation }) => {
-  const [taskTitle, setTaskTitle] = useState("");
-  const [taskDescription, setTaskDescription] = useState("");
-  const [dueDate, setDueDate] = useState(new Date());
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
-  const [email, setEmail] = useState("");
-  const [userEmails, setUserEmails] = useState([]);
+const Project_page = ({ navigation }) => {
+  const [task_Title, set_Task_title] = useState("");
+  const [taskDescrip, set_Task_descrip] = useState("");
+  const [due_Date, set_Due_date] = useState(new Date());
+  const [isDatePicker_Visible, setDatePicker_Visibility] = useState(false);
+  const [isTimePicker_Visible, setTimePicker_Visibility] = useState(false);
+  const [email, set_Email] = useState("");
+  const [user_Emails, set_User_emails] = useState([]);
 
-  const { addTask, checkUserExists } = useContext(TaskContext);
+  const { add_Task, check_User_exists } = useContext(task_Context);
 
-  const handleAddTask = async () => {
-    if (!taskTitle || !taskDescription) {
+  const handle_Add_task = async () => {
+    if (!task_Title || !taskDescrip) {
       Alert.alert(
         "Validation Error",
         "Project title and description are required"
@@ -35,8 +35,8 @@ const ProjectPage = ({ navigation }) => {
 
     try {
       const userUIDs = await Promise.all(
-        userEmails.map(async (email) => {
-          const userExists = await checkUserExists(email);
+        user_Emails.map(async (email) => {
+          const userExists = await check_User_exists(email);
           if (userExists) {
             return email;
           } else {
@@ -45,16 +45,16 @@ const ProjectPage = ({ navigation }) => {
         })
       ).then((results) => results.filter((email) => email !== null));
 
-      console.log("Adding task with:", { taskTitle, taskDescription, dueDate }); // Debug log before addTask
+      console.log("Adding task with:", { task_Title, taskDescrip, due_Date }); // Debug log before addTask
       const projectData = {
-        taskTitle,
-        taskDescription,
-        dueDate,
+        task_Title,
+        taskDescrip,
+        due_Date,
         type: "project",
       };
       console.log("Adding project with:", projectData, "and users:", userUIDs); // log project data and users before adding
 
-      await addTask(projectData, userUIDs);
+      await add_Task(projectData, userUIDs);
       console.log(
         "Project added successfully:",
         projectData,
@@ -71,46 +71,46 @@ const ProjectPage = ({ navigation }) => {
   };
 
   const handleAddUser = async () => {
-    if (userEmails.length >= 5) {
+    if (user_Emails.length >= 5) {
       Alert.alert("Error", "Cannot add more than 5 users");
       return;
     }
     try {
-      const userExists = await checkUserExists(email);
+      const userExists = await check_User_exists(email);
       if (!userExists) {
         Alert.alert("Error", "User does not exist");
         return;
       }
-      setUserEmails([...userEmails, email]);
-      setEmail(""); // clear the input field
+      set_User_emails([...user_Emails, email]);
+      set_Email(""); // clear the input field
     } catch (error) {
       Alert.alert("Error", error.message);
     }
   };
 
   const showDatePicker = () => {
-    setDatePickerVisibility(true);
+    setDatePicker_Visibility(true);
   };
 
   const hideDatePicker = () => {
-    setDatePickerVisibility(false);
+    setDatePicker_Visibility(false);
   };
 
   const handleConfirmDate = (date) => {
-    setDueDate(date);
+    set_Due_date(date);
     hideDatePicker();
   };
 
   const showTimePicker = () => {
-    setTimePickerVisibility(true);
+    setTimePicker_Visibility(true);
   };
 
   const hideTimePicker = () => {
-    setTimePickerVisibility(false);
+    setTimePicker_Visibility(false);
   };
 
   const handleConfirmTime = (time) => {
-    setDueDate(time);
+    set_Due_date(time);
     hideTimePicker();
   };
 
@@ -129,8 +129,8 @@ const ProjectPage = ({ navigation }) => {
             <Text style={styles.labelText}>Project Title:</Text>
             <TextInput
               style={styles.input}
-              value={taskTitle}
-              onChangeText={setTaskTitle}
+              value={task_Title}
+              onChangeText={set_Task_title}
               placeholder="Project title"
               placeholderTextColor="#aaa"
             />
@@ -138,8 +138,8 @@ const ProjectPage = ({ navigation }) => {
             <Text style={styles.labelText}>Project Description:</Text>
             <TextInput
               style={[styles.input, styles.textArea]}
-              value={taskDescription}
-              onChangeText={setTaskDescription}
+              value={taskDescrip}
+              onChangeText={set_Task_descrip}
               placeholder="Project description"
               placeholderTextColor="#aaa"
               multiline
@@ -150,7 +150,7 @@ const ProjectPage = ({ navigation }) => {
               onPress={showDatePicker}
               style={styles.dateButton}
             >
-              <Text style={styles.buttonText}>{dueDate.toDateString()}</Text>
+              <Text style={styles.buttonText}>{due_Date.toDateString()}</Text>
             </TouchableOpacity>
 
             <Text style={styles.labelText}>Due Time:</Text>
@@ -159,7 +159,7 @@ const ProjectPage = ({ navigation }) => {
               style={styles.dateButton}
             >
               <Text style={styles.buttonText}>
-                {dueDate.toLocaleTimeString([], {
+                {due_Date.toLocaleTimeString([], {
                   hour: "2-digit",
                   minute: "2-digit",
                 })}
@@ -167,14 +167,14 @@ const ProjectPage = ({ navigation }) => {
             </TouchableOpacity>
 
             <DateTimePickerModal
-              isVisible={isDatePickerVisible}
+              isVisible={isDatePicker_Visible}
               mode="date"
               onConfirm={handleConfirmDate}
               onCancel={hideDatePicker}
             />
 
             <DateTimePickerModal
-              isVisible={isTimePickerVisible}
+              isVisible={isTimePicker_Visible}
               mode="time"
               onConfirm={handleConfirmTime}
               onCancel={hideTimePicker}
@@ -187,7 +187,7 @@ const ProjectPage = ({ navigation }) => {
               <TextInput
                 style={styles.input}
                 value={email}
-                onChangeText={setEmail}
+                onChangeText={set_Email}
                 placeholder="Max 5 collaborator"
                 placeholderTextColor="#aaa"
               />
@@ -198,7 +198,7 @@ const ProjectPage = ({ navigation }) => {
                 <Text style={styles.addButtonText}>Add</Text>
               </TouchableOpacity>
             </View>
-            {userEmails.map((userEmail, index) => (
+            {user_Emails.map((userEmail, index) => (
               <Text key={index} style={styles.userEmail}>
                 {userEmail}
               </Text>
@@ -214,14 +214,14 @@ const ProjectPage = ({ navigation }) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.button, styles.addButton]}
-              onPress={handleAddTask}
+              onPress={handle_Add_task}
             >
               <Text style={styles.buttonText}>Add Project</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
       </View>
-      <BottomNav navigation={navigation} />
+      <Bottom_Nav navigation={navigation} />
     </LinearGradient>
   );
 };
@@ -317,4 +317,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProjectPage;
+export default Project_page;

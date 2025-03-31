@@ -9,21 +9,21 @@ import {
   ActivityIndicator,
   Image,
 } from "react-native";
-import { TaskContext } from "./TaskContext";
+import { task_Context } from "./task_Context";
 import * as Progress from "react-native-progress";
 import Icon from "react-native-vector-icons/FontAwesome";
-import BottomNav from "../components/BottomNav";
+import Bottom_Nav from "../components/BottomNav";
 
-const HomePage = ({ navigation }) => {
-  const { tasks, deleteTask, completeTask, userProfile, fetchTasks, levels } =
-    useContext(TaskContext);
+const HomePg = ({ navigation }) => {
+  const { tasks, delete_Task, complete_Task, user_Profile, fetch_Tasks, levels } =
+    useContext(task_Context);
 
   useEffect(() => {
-    fetchTasks(); // fetch tasks directly without checking user email, using local storage now
+    fetch_Tasks(); // fetch tasks directly without checking user email, using local storage now
   }, []);
 
   // Confirmation for task deletion
-  const handleDeleteTask = (taskId) => {
+  const handle_DeleteTask = (taskId) => {
     console.log("Attempting to delete task with ID:", taskId); // Log before showing alert
     Alert.alert(
       "Confirm Deletion",
@@ -38,7 +38,7 @@ const HomePage = ({ navigation }) => {
           text: "Delete",
           onPress: () => {
             console.log("Task deleted with ID:", taskId); // Log deletion
-            deleteTask(taskId);
+            delete_Task(taskId);
           },
           style: "destructive",
         },
@@ -48,14 +48,14 @@ const HomePage = ({ navigation }) => {
   };
 
   // Mark task as completed
-  const handleCompleteTask = (taskId) => {
+  const handle_CompleteTask = (taskId) => {
     console.log("Marking task as complete with ID:", taskId); // Log task completion
-    completeTask(taskId);
+    complete_Task(taskId);
   };
 
   // get the current level of the user
-  const getCurrentLevel = () => {
-    if (!userProfile || !levels || levels.length === 0) {
+  const getCurrLevel = () => {
+    if (!user_Profile || !levels || levels.length === 0) {
       return {
         name: "Task Apprentice",
         xp: 0,
@@ -64,12 +64,12 @@ const HomePage = ({ navigation }) => {
       };
     }
 
-    const currentLevel = levels.find(
-      (level) => level.name === userProfile.level
+    const currLevel = levels.find(
+      (level) => level.name === user_Profile.level
     );
 
     return (
-      currentLevel || {
+      currLevel || {
         name: "Task Apprentice",
         xp: 0,
         threshold: 300,
@@ -79,21 +79,21 @@ const HomePage = ({ navigation }) => {
   };
 
   // Calculate the progress for the user's level
-  const currentLevel = getCurrentLevel();
-  const progress = userProfile ? userProfile.xp / currentLevel.threshold : 0;
+  const currLevel = getCurrLevel();
+  const progress = user_Profile ? user_Profile.xp / currLevel.threshold : 0;
 
   return (
     <View style={styles.container}>
       {/* Header section displaying user's name and profile */}
       <View style={styles.headerContainer}>
         <Text style={styles.welcomeText}>
-          Welcome, {userProfile ? userProfile.nickname : ""}
+          Welcome, {user_Profile ? user_Profile.nickname : ""}
         </Text>
-        {userProfile && (
+        {user_Profile && (
           <View style={styles.profileContainer}>
-            <Image source={currentLevel.image} style={styles.profileImage} />
+            <Image source={currLevel.image} style={styles.profileImage} />
             <View style={styles.profileInfo}>
-              <Text style={styles.levelText}>{userProfile.level}</Text>
+              <Text style={styles.levelText}>{user_Profile.level}</Text>
               <Progress.Bar
                 progress={progress}
                 width={150}
@@ -106,7 +106,7 @@ const HomePage = ({ navigation }) => {
                 style={styles.progressBar}
               />
               <Text style={styles.xpText}>
-                {userProfile.xp} / {currentLevel.threshold} XP
+                {user_Profile.xp} / {currLevel.threshold} XP
               </Text>
             </View>
           </View>
@@ -182,14 +182,14 @@ const HomePage = ({ navigation }) => {
                 {!task.completed && (
                   <TouchableOpacity
                     style={[styles.button, styles.completeButton]}
-                    onPress={() => handleCompleteTask(task.id)}
+                    onPress={() => handle_CompleteTask(task.id)}
                   >
                     <Text style={styles.buttonText}>Complete</Text>
                   </TouchableOpacity>
                 )}
                 <TouchableOpacity
                   style={[styles.button, styles.deleteButton]}
-                  onPress={() => handleDeleteTask(task.id)}
+                  onPress={() => handle_DeleteTask(task.id)}
                 >
                   <Text style={styles.buttonText}>Delete</Text>
                 </TouchableOpacity>
@@ -198,7 +198,7 @@ const HomePage = ({ navigation }) => {
           ))}
       </ScrollView>
       {/* Bottom navigation component */}
-      <BottomNav navigation={navigation} />
+      <Bottom_Nav navigation={navigation} />
     </View>
   );
 };
@@ -346,4 +346,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomePage;
+export default HomePg;

@@ -1,11 +1,11 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 
-const LandingPage = ({ navigation }) => {
+const Landing_page = ({ navigation }) => {
   return (
     <View style={styles.container}>
       {/* Logo Container */}
-      <View style={styles.logoContainer}>
+      <View style={styles.logo_Container}>
         <Image source={require("../assets/gamiwork.png")} style={styles.logo} />
       </View>
       {/* Subtitle Text */}
@@ -15,14 +15,14 @@ const LandingPage = ({ navigation }) => {
         style={styles.button}
         onPress={() => navigation.navigate("SignIn")}
       >
-        <Text style={styles.buttonText}>Sign In</Text>
+        <Text style={styles.button_Text}>Sign In</Text>
       </TouchableOpacity>
       {/* Create Account Button */}
       <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate("SignUp")}
       >
-        <Text style={styles.buttonText}>Create Account</Text>
+        <Text style={styles.button_Text}>Create Account</Text>
       </TouchableOpacity>
     </View>
   );
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 15,
   },
-  logoContainer: {
+  logo_Container: {
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 40,
@@ -60,10 +60,10 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     marginBottom: 20,
   },
-  buttonText: {
+  button_Text: {
     color: "white",
     fontSize: 16,
   },
 });
 
-export default LandingPage;
+export default Landing_page;

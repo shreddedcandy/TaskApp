@@ -1,16 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import { TaskContext } from "./TaskContext";
+import { task_Context } from "./task_Context";
 import { Calendar } from "react-native-calendars";
-import BottomNav from "../components/BottomNav";
+import Bottom_Nav from "../components/BottomNav";
 
-const CalendarPage = ({ navigation }) => {
-  const { tasks, fetchTasks } = useContext(TaskContext);
-  const [markedDates, setMarkedDates] = useState({}); // state to store marked dates for the calendar
+const Calendar_Page = ({ navigation }) => {
+  const { tasks, fetch_Tasks } = useContext(task_Context);
+  const [marked_Dates, setMarked_dates] = useState({}); // state to store marked dates for the calendar
 
   // fetch tasks when the component mounts
   useEffect(() => {
-    fetchTasks(); // ensure fetches tasks correctly
+    fetch_Tasks(); // ensure fetches tasks correctly
   }, []);
 
   // update marked dates whenever tasks change
@@ -20,20 +20,20 @@ const CalendarPage = ({ navigation }) => {
       .filter((task) => !task.completed) // Filter out completed tasks
       .forEach((task) => {
         // ensure task.dueDate is a date object
-        const dateStr = new Date(task.dueDate).toISOString().split("T")[0];
-        dates[dateStr] = {
+        const date_Str = new Date(task.dueDate).toISOString().split("T")[0];
+        dates[date_Str] = {
           marked: true,
           dotColor: task.overdue ? "#ff4d4d" : "#39FF14", // set dot color based on whether the task is overdue
         };
       });
-    setMarkedDates(dates); // update marked dates state
+    setMarked_dates(dates); // update marked dates state
   }, [tasks]);
 
   return (
     <View style={styles.container}>
       <ScrollView>
         <Calendar
-          markedDates={markedDates} // Pass marked dates to the calendar
+          markedDates={marked_Dates} // Pass marked dates to the calendar
           theme={{
             backgroundColor: "#000",
             calendarBackground: "#000",
@@ -47,38 +47,38 @@ const CalendarPage = ({ navigation }) => {
             textDisabledColor: "#555",
           }}
           onDayPress={(day) => {
-            const selectedDate = new Date(day.dateString); // convert selected date string to date object
-            const selectedTasks = tasks
+            const selected_Date = new Date(day.dateString); // convert selected date string to date object
+            const selected_Tasks = tasks
               .filter(
                 (task) =>
                   new Date(task.dueDate).toDateString() ===
-                    selectedDate.toDateString() && !task.completed
+                    selected_Date.toDateString() && !task.completed
               )
               .map((task) => ({
                 ...task,
                 dueDate: new Date(task.dueDate).toISOString(), // ensure dueDate is in ISO format
               }));
-            navigation.navigate("TasksForDay", { tasks: selectedTasks }); // navigate to TasksForDay screen with selected taskss
+            navigation.navigate("TasksForDay", { tasks: selected_Tasks }); // navigate to TasksForDay screen with selected taskss
           }}
         />
-        <View style={styles.tasksContainer}>
+        <View style={styles.tasks_Container}>
           <Text style={styles.header}>Overdue Tasks</Text>
           {tasks
             .filter((task) => task.overdue && !task.completed) // filter out overdue tasks that are not completed
             .map((task, index) => (
               <View key={index} style={styles.task}>
-                <Text style={styles.taskTitle}>{task.taskTitle}</Text>
-                <Text style={styles.taskDescription}>
+                <Text style={styles.task_Title}>{task.taskTitle}</Text>
+                <Text style={styles.taskDescrip}>
                   {task.taskDescription}
                 </Text>
-                <Text style={styles.taskDueDate}>
+                <Text style={styles.taskDue_date}>
                   Due Date: {new Date(task.dueDate).toLocaleDateString()}
                 </Text>
               </View>
             ))}
         </View>
       </ScrollView>
-      <BottomNav navigation={navigation} />
+      <Bottom_Nav navigation={navigation} />
     </View>
   );
 };
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#000",
     paddingBottom: 70,
   },
-  tasksContainer: {
+  tasks_Container: {
     padding: 16,
   },
   header: {
@@ -104,19 +104,19 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     borderRadius: 10,
   },
-  taskTitle: {
+  task_Title: {
     fontSize: 16,
     fontWeight: "bold",
     color: "#fff",
   },
-  taskDescription: {
+  taskDescrip: {
     fontSize: 14,
     color: "#ccc",
   },
-  taskDueDate: {
+  taskDue_date: {
     fontSize: 12,
     color: "#000",
   },
 });
 
-export default CalendarPage;
+export default Calendar_Page;

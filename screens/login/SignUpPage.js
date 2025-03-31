@@ -9,17 +9,17 @@ import {
   ActivityIndicator,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { TaskContext } from "../TaskContext";
+import { task_Context } from "../task_Context";
 
-const SignUpPage = ({ navigation }) => {
+const SignUp_Page = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [nickname, setNickname] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, set_Loading] = useState(false);
 
-  const { saveUserProfile, addUser, checkUserExists } = useContext(TaskContext); // use the saveUserProfile and addUser functions from TaskContext
+  const { saveUserProfile, addUser, checkUserExists } = useContext(task_Context); // use the saveUserProfile and addUser functions from TaskContext
 
-  const handleSignUp = async () => {
+  const handle_SignUp = async () => {
     if (!email || !password || !nickname) {
       Alert.alert(
         "Validation Error",
@@ -28,14 +28,14 @@ const SignUpPage = ({ navigation }) => {
       return;
     }
 
-    setLoading(true);
+    set_Loading(true);
 
     try {
       // Check if the email is already registered
       const userExists = await checkUserExists(email);
 
       if (userExists) {
-        setLoading(false);
+        set_Loading(false);
         Alert.alert(
           "Email Already Registered",
           "You have an account with this email address."
@@ -57,10 +57,10 @@ const SignUpPage = ({ navigation }) => {
       await AsyncStorage.setItem("currentUserEmail", email); // set current user email for session persistence
       console.log("User successfully created:", userProfile); // success message
 
-      setLoading(false);
+      set_Loading(false);
       navigation.navigate("Home"); // Navigate to home screen
     } catch (error) {
-      setLoading(false);
+      set_Loading(false);
       Alert.alert("Sign Up Error", error.message);
     }
   };
@@ -96,7 +96,7 @@ const SignUpPage = ({ navigation }) => {
         {loading ? (
           <ActivityIndicator size="large" color="#f57d05" />
         ) : (
-          <Button title="Sign Up" onPress={handleSignUp} color="#f57d05" />
+          <Button title="Sign Up" onPress={handle_SignUp} color="#f57d05" />
         )}
       </View>
     </View>
@@ -134,4 +134,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignUpPage;
+export default SignUp_Page;

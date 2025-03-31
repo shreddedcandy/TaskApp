@@ -1,41 +1,41 @@
 import React, { useState } from "react";
 import { View, TextInput, Button, StyleSheet, Alert, Text } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import BottomNav from "../../components/BottomNav";
+import Bottom_Nav from "../../components/BottomNav";
 
-const ChangePasswordPage = ({ navigation }) => {
-  const [currentPassword, setCurrentPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmNewPassword, setConfirmNewPassword] = useState("");
+const ChangePWPage = ({ navigation }) => {
+  const [currPassword, setCurrPassword] = useState("");
+  const [newPW, setNewPW] = useState("");
+  const [confirmNewPW, setConfirmNewPW] = useState("");
 
-  const handleChangePassword = async () => {
-    if (!currentPassword || !newPassword || !confirmNewPassword) {
+  const handle_ChangePassword = async () => {
+    if (!currPassword || !newPW || !confirmNewPW) {
       Alert.alert("Validation Error", "All fields are required");
       return;
     }
 
-    if (newPassword !== confirmNewPassword) {
+    if (newPW !== confirmNewPW) {
       Alert.alert("Validation Error", "New passwords do not match");
       return;
     }
 
     try {
       // Retrieve current user's email from AsyncStorage
-      const userEmail = await AsyncStorage.getItem("currentUserEmail");
+      const user_Email = await AsyncStorage.getItem("currentUserEmail");
       console.log("Retrieved userEmail:", userEmail);
 
-      if (userEmail) {
+      if (user_Email) {
         // Retrieve the list of all users from AsyncStorage
-        const usersJson = await AsyncStorage.getItem("users");
-        const users = usersJson ? JSON.parse(usersJson) : [];
+        const users_Json = await AsyncStorage.getItem("users");
+        const users = users_Json ? JSON.parse(users_Json) : [];
 
         // Find the user with the matching email
-        const user = users.find((user) => user.email === userEmail.trim());
+        const user = users.find((user) => user.email === user_Email.trim());
         console.log("Retrieved userProfile:", user);
 
         if (user) {
           // Check if the current password matches the one stored for the user
-          if (user.password !== currentPassword) {
+          if (user.password !== currPassword) {
             throw new Error("Current password is incorrect.");
           }
 
@@ -68,24 +68,24 @@ const ChangePasswordPage = ({ navigation }) => {
         <Text style={styles.headerText}>Change Password</Text>
         <TextInput
           style={styles.input}
-          value={currentPassword}
-          onChangeText={setCurrentPassword}
+          value={currPassword}
+          onChangeText={setCurrPassword}
           placeholder="Current Password"
           placeholderTextColor="#999"
           secureTextEntry
         />
         <TextInput
           style={styles.input}
-          value={newPassword}
-          onChangeText={setNewPassword}
+          value={newPW}
+          onChangeText={setNewPW}
           placeholder="New Password"
           placeholderTextColor="#999"
           secureTextEntry
         />
         <TextInput
           style={styles.input}
-          value={confirmNewPassword}
-          onChangeText={setConfirmNewPassword}
+          value={confirmNewPW}
+          onChangeText={setConfirmNewPW}
           placeholder="Confirm New Password"
           placeholderTextColor="#999"
           secureTextEntry
@@ -93,12 +93,12 @@ const ChangePasswordPage = ({ navigation }) => {
         <View style={styles.buttonContainer}>
           <Button
             title="Change Password"
-            onPress={handleChangePassword}
+            onPress={handle_ChangePassword}
             color="#f57d05"
           />
         </View>
       </View>
-      <BottomNav navigation={navigation} />
+      <Bottom_Nav navigation={navigation} />
     </View>
   );
 };
@@ -137,4 +137,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ChangePasswordPage;
+export default ChangePWPage;

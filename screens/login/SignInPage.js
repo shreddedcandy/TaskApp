@@ -1,64 +1,64 @@
 import React, { useState, useContext } from "react";
 import {
+  ActivityIndicator,
   View,
+  Alert,
   TextInput,
   Button,
-  StyleSheet,
-  Alert,
   Text,
-  ActivityIndicator,
+  StyleSheet,
 } from "react-native";
+import { task_Context } from "../task_Context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { TaskContext } from "../TaskContext";
 
-const SignInPage = ({ navigation }) => {
-  const [email, setEmail] = useState("");
+
+const SignIn_Page = ({ navigation }) => {
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [loading, set_Loading] = useState(false);
+  const { save_User_profile, check_UserExists } = useContext(task_Context);
 
-  const { saveUserProfile, checkUserExists } = useContext(TaskContext);
-
-  const handleSignIn = async () => {
+  const handle_SignIn = async () => {
     if (!email || !password) {
       Alert.alert("Validation Error", "Email and Password are required");
       return;
     }
 
-    setLoading(true);
+    set_Loading(true);
 
     try {
-      // check if the user exists
-      const userExists = await checkUserExists(email);
+      // to check if user does exists
+      const user_Exists = await check_UserExists(email);
 
-      if (!userExists) {
-        setLoading(false);
-        Alert.alert("Sign In Error", "No user found with this email.");
+      if (!user_Exists) {
+        set_Loading(false);
+        Alert.alert("Error in Sign In!", "User not found with this email.");
         return;
       }
 
-      // If user exists, get user data from AsyncStorage
-      const usersJson = await AsyncStorage.getItem("users");
+      // Get user data from AsyncStorage if user exists.
       const users = usersJson ? JSON.parse(usersJson) : [];
+      const usersJson = await AsyncStorage.getItem("users");
 
       const user = users.find(
         (user) => user.email === email && user.password === password
       );
 
       if (!user) {
-        setLoading(false);
-        Alert.alert("Sign In Error", "Incorrect password.");
+        set_Loading(false);
+        Alert.alert("Error in sign In", "Wrong password.");
         return;
       }
 
-      saveUserProfile(user); // Set the user profile in context
-      await AsyncStorage.setItem("currentUserEmail", email); // save the log in user's email
-      console.log("User successfully logged in:", user); // log success message
+      save_User_profile(user); // Setting the user profile in context
+      await AsyncStorage.setItem("currentUserEmail", email); // saving the log in user's email
+      console.log("User successfully logged in:", user); // logging message of success
 
-      setLoading(false);
-      navigation.navigate("Home"); // navigate to home screen
+      set_Loading(false);
+      navigation.navigate("Home"); // navigating to homescreen
     } catch (error) {
-      setLoading(false);
-      Alert.alert("Sign In Error", error.message);
+      set_Loading(false);
+      Alert.alert("Error in sign In", error.message);
     }
   };
 
@@ -66,27 +66,28 @@ const SignInPage = ({ navigation }) => {
     <View style={styles.container}>
       <Text style={styles.headerText}>Sign In</Text>
       <TextInput
-        style={styles.input}
-        value={email}
-        onChangeText={setEmail}
-        placeholder="Email"
-        placeholderTextColor="#999"
-        autoCapitalize="none"
-        keyboardType="email-address"
-      />
-      <TextInput
+        placeholder="Password"
         style={styles.input}
         value={password}
         onChangeText={setPassword}
-        placeholder="Password"
-        placeholderTextColor="#999"
+        placeholderTextColor="#995"
         secureTextEntry
       />
-      <View style={styles.buttonContainer}>
+      <TextInput
+        placeholder="Email"
+        style={styles.input}
+        value={email}
+        onChangeText={setEmail}
+        placeholderTextColor="#995"
+        autoCapitalize="none"
+        keyboardType="email-address"
+      />
+      
+      <View style={styles.button_Container}>
         {loading ? (
-          <ActivityIndicator size="large" color="#f57d05" />
+          <ActivityIndicator size="large" color="#f57d03" />
         ) : (
-          <Button title="Sign In" onPress={handleSignIn} color="#f57d05" />
+          <Button title="Sign In" onPress={handle_SignIn} color="#f57d03" />
         )}
       </View>
     </View>
@@ -107,21 +108,22 @@ const styles = StyleSheet.create({
     fontSize: 32,
     marginBottom: 20,
   },
-  input: {
-    backgroundColor: "#333",
-    width: "80%",
-    padding: 15,
-    marginVertical: 15,
-    borderWidth: 2,
-    borderColor: "#f57d05",
-    borderRadius: 10,
-    color: "white",
-  },
-  buttonContainer: {
+  button_Container: {
     marginTop: 20,
     width: "80%",
     borderRadius: 25,
   },
+  input: {
+    backgroundColor: "#331",
+    width: "80%",
+    padding: 15,
+    marginVertical: 15,
+    borderWidth: 2,
+    borderColor: "#f57d03",
+    borderRadius: 10,
+    color: "white",
+  },
+  
 });
 
-export default SignInPage;
+export default SignIn_Page;
