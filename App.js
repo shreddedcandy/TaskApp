@@ -1,7 +1,7 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { TaskProvider } from "./screens/task_Context";
+import { Task_provider } from "./screens/task_Context";
 
 import Landing_page from "./screens/LandingPage";
 import SignIn_Page from "./screens/login/SignInPage";
@@ -24,7 +24,7 @@ const Stack = createStackNavigator();
 const App = () => {
   return (
     // wrap the navigation container with the TaskProvider to provide global state management
-    <TaskProvider>
+    <Task_provider>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Landing">
           <Stack.Screen
@@ -46,7 +46,7 @@ const App = () => {
           <Stack.Screen name="HowToUse" component={How_ToUse_Page} />
         </Stack.Navigator>
       </NavigationContainer>
-    </TaskProvider>
+    </Task_provider>
   );
 };
 

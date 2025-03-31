@@ -1,7 +1,7 @@
 import React from "react";
 import { render, fireEvent, waitFor } from "@testing-library/react-native";
 import ProjectPage from "./ProjectPage";
-import { task_Context } from "./task_Context";
+import { Task_context } from "./task_Context";
 import { Alert } from "react-native";
 import { act } from "@testing-library/react-native";
 
@@ -36,9 +36,9 @@ describe("ProjectPage Component", () => {
     mockCheckUserExists.mockResolvedValue(true); // Mock that user exists
 
     const { getByPlaceholderText, getAllByText } = render(
-      <task_Context.Provider value={mockContextValue}>
+      <Task_context.Provider value={mockContextValue}>
         <ProjectPage navigation={mockNavigation} />
-      </task_Context.Provider>
+      </Task_context.Provider>
     );
 
     // Set the inputs to add a task
@@ -86,9 +86,9 @@ describe("ProjectPage Component", () => {
     mock_Add_task.mockRejectedValue(new Error("Network Error")); // simulate network error
 
     const { getByPlaceholderText, getAllByText } = render(
-      <task_Context.Provider value={mockContextValue}>
+      <Task_context.Provider value={mockContextValue}>
         <ProjectPage navigation={mockNavigation} />
-      </task_Context.Provider>
+      </Task_context.Provider>
     );
 
     // inputs are set to bypass validation errors
@@ -120,9 +120,9 @@ describe("ProjectPage Component", () => {
 
   test("shows validation error when taskTitle or taskDescription is empty", async () => {
     const { getAllByText } = render(
-      <task_Context.Provider value={mockContextValue}>
+      <Task_context.Provider value={mockContextValue}>
         <ProjectPage navigation={mockNavigation} />
-      </task_Context.Provider>
+      </Task_context.Provider>
     );
 
     fireEvent.press(getAllByText("Add Project")[1]); // Use getAllByText and select the correct button by index
@@ -138,9 +138,9 @@ describe("ProjectPage Component", () => {
     mockCheckUserExists.mockResolvedValue(true);
 
     const { getByText, getByPlaceholderText, queryByDisplayValue } = render(
-      <task_Context.Provider value={mockContextValue}>
+      <Task_context.Provider value={mockContextValue}>
         <ProjectPage navigation={mockNavigation} />
-      </task_Context.Provider>
+      </Task_context.Provider>
     );
 
     fireEvent.changeText(
@@ -158,9 +158,9 @@ describe("ProjectPage Component", () => {
   test("shows error alert when user does not exist", async () => {
     mockCheckUserExists.mockResolvedValue(false);
     const { getByText, getByPlaceholderText } = render(
-      <task_Context.Provider value={mockContextValue}>
+      <Task_context.Provider value={mockContextValue}>
         <ProjectPage navigation={mockNavigation} />
-      </task_Context.Provider>
+      </Task_context.Provider>
     );
 
     fireEvent.changeText(

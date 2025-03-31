@@ -2,10 +2,10 @@ import React, { createContext, useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // create TaskContext to provide task related state and functions
-export const task_Context = createContext();
+export const Task_context = createContext();
 
 // TaskProvider component to wrap around children components and provide context
-export const task_Provider = ({ children }) => {
+export const Task_provider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
   const [user_Profile, set_User_profile] = useState({
     xp: 0,
@@ -244,7 +244,7 @@ export const task_Provider = ({ children }) => {
   };
 
   return (
-    <task_Context.Provider
+    <Task_context.Provider
       value={{
         tasks,
         addTask,
@@ -260,6 +260,6 @@ export const task_Provider = ({ children }) => {
       }}
     >
       {children}
-    </task_Context.Provider>
+    </Task_context.Provider>
   );
 };

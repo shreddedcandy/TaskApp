@@ -1,12 +1,12 @@
 import React, { useState, useContext } from "react";
 import { View, TextInput, Button, StyleSheet, Alert, Text } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { task_Context } from "../task_Context";
+import { Task_context } from "../task_Context";
 import Bottom_Nav from "../../components/BottomNav";
 
 const ChangeNNPage = ({ navigation }) => {
   const [new_Nickname, setNewNN] = useState("");
-  const { userProfile, saveUserProfile } = useContext(task_Context);
+  const { userProfile, saveUserProfile } = useContext(Task_context);
 
   const handle_ChangeNN = async () => {
     if (!new_Nickname) {

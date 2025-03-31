@@ -9,7 +9,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { task_Context } from "../task_Context";
+import { Task_context } from "../task_Context";
 
 const SignUp_Page = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -17,7 +17,7 @@ const SignUp_Page = ({ navigation }) => {
   const [nickname, setNickname] = useState("");
   const [loading, set_Loading] = useState(false);
 
-  const { saveUserProfile, addUser, checkUserExists } = useContext(task_Context); // use the saveUserProfile and addUser functions from TaskContext
+  const { saveUserProfile, addUser, checkUserExists } = useContext(Task_context); // use the saveUserProfile and addUser functions from TaskContext
 
   const handle_SignUp = async () => {
     if (!email || !password || !nickname) {
