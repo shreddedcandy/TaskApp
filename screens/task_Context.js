@@ -217,7 +217,7 @@ export const Task_provider = ({ children }) => {
     }
   };
 
-  const check_UserExists = async (email) => {
+  const check_User_exists = async (email) => {
     try {
       const usersJson = await AsyncStorage.getItem("users");
       const users = usersJson ? JSON.parse(usersJson) : [];
@@ -255,7 +255,7 @@ export const Task_provider = ({ children }) => {
         levels,
         save_User_profile,
         fetch_Tasks,
-        check_UserExists,
+        check_User_exists,
         add_User,
       }}
     >
