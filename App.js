@@ -13,9 +13,9 @@ import Calendar_Page from "./screens/CalendarPage";
 import Tasks_For_day from "./screens/TasksForDay";
 import Achievement_Page from "./screens/AchievementPage";
 
-import SettingPage from "./screens/settingInfo/SettingPage";
-import ChangeNicknamePage from "./screens/settingInfo/ChangeNickname";
-import ChangePasswordPage from "./screens/settingInfo/ChangePassword";
+import Setting_Page from "./screens/settingInfo/SettingPage";
+import ChangeNNPage from "./screens/settingInfo/ChangeNickname";
+import ChangePWPage from "./screens/settingInfo/ChangePassword";
 import How_ToUse_Page from "./screens/settingInfo/HowToUsePage";
 
 // Create a stack navigator
@@ -40,9 +40,9 @@ const App = () => {
           <Stack.Screen name="Calendar" component={Calendar_Page} />
           <Stack.Screen name="TasksForDay" component={Tasks_For_day} />
           <Stack.Screen name="Achievement" component={Achievement_Page} />
-          <Stack.Screen name="Setting" component={SettingPage} />
-          <Stack.Screen name="ChangeNickname" component={ChangeNicknamePage} />
-          <Stack.Screen name="ChangePassword" component={ChangePasswordPage} />
+          <Stack.Screen name="Setting" component={Setting_Page} />
+          <Stack.Screen name="ChangeNickname" component={ChangeNNPage} />
+          <Stack.Screen name="ChangePassword" component={ChangePWPage} />
           <Stack.Screen name="HowToUse" component={How_ToUse_Page} />
         </Stack.Navigator>
       </NavigationContainer>
