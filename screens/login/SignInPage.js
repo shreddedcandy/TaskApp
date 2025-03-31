@@ -16,7 +16,7 @@ const SignIn_Page = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, set_Loading] = useState(false);
-  const { save_User_profile, check_UserExists } = useContext(Task_context);
+  const { save_User_profile, check_User_exists } = useContext(Task_context);
 
   const handle_SignIn = async () => {
     if (!email || !password) {
@@ -28,7 +28,7 @@ const SignIn_Page = ({ navigation }) => {
 
     try {
       // to check if user does exists
-      const user_Exists = await check_UserExists(email);
+      const user_Exists = await check_User_exists(email);
 
       if (!user_Exists) {
         set_Loading(false);

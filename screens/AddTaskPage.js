@@ -157,7 +157,7 @@ const Add_TaskPage = ({ navigation }) => {
             isVisible={isDatePicker_Visible}
             mode="date"
             onConfirm={handle_ConfirmDate}
-            onCancel={hideDatePicker}
+            onCancel={hide_DatePicker}
           />
 
           <DateTimePickerModal

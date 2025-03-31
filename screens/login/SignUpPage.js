@@ -17,7 +17,7 @@ const SignUp_Page = ({ navigation }) => {
   const [nickname, setNickname] = useState("");
   const [loading, set_Loading] = useState(false);
 
-  const { save_User_profile, add_User, check_UserExists } = useContext(Task_context); // use the saveUserProfile and addUser functions from TaskContext
+  const { save_User_profile, add_User, check_User_exists } = useContext(Task_context); // use the saveUserProfile and addUser functions from TaskContext
 
   const handle_SignUp = async () => {
     if (!email || !password || !nickname) {
@@ -32,7 +32,7 @@ const SignUp_Page = ({ navigation }) => {
 
     try {
       // Check if the email is already registered
-      const userExists = await check_UserExists(email);
+      const userExists = await check_User_exists(email);
 
       if (userExists) {
         set_Loading(false);
