@@ -20,8 +20,19 @@ const Calendar_Page = ({ navigation }) => {
       .filter((task) => !task.completed) // Filter out completed tasks
       .forEach((task) => {
         // ensure task.dueDate is a date object
-        const date_Str = new Date(task.dueDate).toISOString().split("T")[0];
-        dates[date_Str] = {
+        // const dateStr = new Date(task.due_Date).toISOString().split("T")[0];
+        const dueDate = new Date(task.due_Date);
+        if (!isNaN(dueDate)) {
+        const dateStr = dueDate.toISOString().split("T")[0];
+        dates[dateStr] = {
+          marked: true,
+          dotColor: task.overdue ? "#ff4d4d" : "#39FF14",
+        };
+      
+} else {
+  console.warn("Invalid due_Date found in task:", task);
+}
+        dates[dateStr] = {
           marked: true,
           dotColor: task.overdue ? "#ff4d4d" : "#39FF14", // set dot color based on whether the task is overdue
         };
@@ -51,12 +62,12 @@ const Calendar_Page = ({ navigation }) => {
             const selected_Tasks = tasks
               .filter(
                 (task) =>
-                  new Date(task.dueDate).toDateString() ===
+                  new Date(task.due_Date).toDateString() ===
                     selected_Date.toDateString() && !task.completed
               )
               .map((task) => ({
                 ...task,
-                dueDate: new Date(task.dueDate).toISOString(), // ensure dueDate is in ISO format
+                due_Date: new Date(task.due_Date).toISOString(), // ensure dueDate is in ISO format
               }));
             navigation.navigate("TasksForDay", { tasks: selected_Tasks }); // navigate to TasksForDay screen with selected taskss
           }}
@@ -72,7 +83,7 @@ const Calendar_Page = ({ navigation }) => {
                   {task.taskDescription}
                 </Text>
                 <Text style={styles.taskDue_date}>
-                  Due Date: {new Date(task.dueDate).toLocaleDateString()}
+                  Due Date: {new Date(task.due_Date).toLocaleDateString()}
                 </Text>
               </View>
             ))}
